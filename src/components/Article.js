@@ -27,9 +27,8 @@ export default (props) => {
                     padding: "20px",
                 }}
             >
-                <a href={props.article.link}>
                     <Row>
-                        <Col>
+                        <Col style={{ textAlign: "center" }}>
                             <Image
                                 src={props.article.imgLink}
                                 height="200px"
@@ -44,7 +43,6 @@ export default (props) => {
                             </p>
                         </Col>
                     </Row>
-                </a>
             </Col>
             <Col></Col>
         </Row>

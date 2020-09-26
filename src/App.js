@@ -31,10 +31,13 @@ export default class App extends React.Component {
             "Labeled Satire",
             "Lost Legend",
         ],
+        numArticles: 2,
+        hasReachedEnd: false,
+        shouldShowScore: false,
     };
 
     componentDidMount = async () => {
-        await this.loadNewSetOfArticles(5);
+        await this.loadNewSetOfArticles(this.state.numArticles);
     };
 
     loadNewSetOfArticles = async (num) => {
@@ -54,14 +57,23 @@ export default class App extends React.Component {
     };
 
     loadNextArticle = () => {
-        this.setState(
-            (prevState) => ({
-                articleIndex: prevState.articleIndex + 1,
-            }),
-            () => {
-                this.updateArticle();
-            }
-        );
+        const isNextArticleLastOne =
+            this.state.articleIndex + 2 < this.state.numArticles;
+        if (isNextArticleLastOne) {
+            console.log("   a");
+            this.setState(
+                (prevState) => ({
+                    articleIndex: prevState.articleIndex + 1,
+                }),
+                () => {
+                    this.updateArticle();
+                }
+            );
+        } else {
+            console.log("   b");
+
+            this.setState({ hasReachedEnd: true });
+        }
     };
     updateArticle = () => {
         this.setState((prevState) => ({
@@ -70,7 +82,6 @@ export default class App extends React.Component {
     };
 
     handleAnswerClick = (answer) => {
-        console.log("App -> handleAnswerClick -> answer", answer);
         this.setState({ hasAnswered: true });
 
         switch (answer) {
@@ -80,36 +91,30 @@ export default class App extends React.Component {
                         this.state.article.rating
                     )
                 ) {
-                    console.log("answered true: correct");
                     this.setState({ isCorrect: true });
                 } else {
-                    console.log("answered true: false");
                     this.setState({ isCorrect: false });
                 }
                 break;
             case "mixed":
                 if (
-                    this.state.trueConditions.includes(
+                    this.state.mixedConditions.includes(
                         this.state.article.rating
                     )
                 ) {
-                    console.log("answered true: correct");
                     this.setState({ isCorrect: true });
                 } else {
-                    console.log("answered true: false");
                     this.setState({ isCorrect: false });
                 }
                 break;
             case "false":
                 if (
-                    this.state.trueConditions.includes(
+                    this.state.falseConditions.includes(
                         this.state.article.rating
                     )
                 ) {
-                    console.log("answered true: correct");
                     this.setState({ isCorrect: true });
                 } else {
-                    console.log("answered true: false");
                     this.setState({ isCorrect: false });
                 }
                 break;
@@ -120,8 +125,14 @@ export default class App extends React.Component {
     };
 
     handleNextQuestionClick = () => {
-        this.loadNextArticle();
-        this.setState({ hasAnswered: false });
+        if (!this.state.hasReachedEnd) {
+            console.log("loading next article");
+            this.loadNextArticle();
+            this.setState({ hasAnswered: false });
+        } else {
+            this.setState({ shouldShowScore: true });
+            console.log("showing results");
+        }
     };
 
     render() {
@@ -139,8 +150,18 @@ export default class App extends React.Component {
                         <>
                             <Result
                                 isCorrect={this.state.isCorrect}
+                                hasReachedEnd={this.state.hasReachedEnd}
                                 onClick={this.handleNextQuestionClick}
                             />
+                            {/* {this.state.shouldShowScore ? (
+                                <h1>Your score was 9/10</h1>
+                            ) : (
+                                <Result
+                                    isCorrect={this.state.isCorrect}
+                                    hasReachedEnd={this.state.hasReachedEnd}
+                                    onClick={this.handleNextQuestionClick}
+                                />
+                            )} */}
                             <SnopesAnswer article={this.state.article} />
                         </>
                     ) : (

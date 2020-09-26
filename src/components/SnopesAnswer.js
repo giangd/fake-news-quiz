@@ -18,55 +18,72 @@ export default (props) => {
     */
     return (
         <Row>
-            <Col></Col>
-            <Col
-                xs={10}
-                style={{
-                    backgroundColor: "rgb(240, 240, 240)",
-                    padding: "20px",
-                }}
-            >
-                <div
-                    style={{
-                        display: "flex",
-                        flexDirection: "row",
-                    }}
-                >
-                    <img
-                        src={props.article.ratingImg}
-                        height="200px"
-                        width="200px"
-                    />
+            <Col>
+                <Row>
+                    <Col></Col>
 
-                    <div>
-                        <h1>Snope's Rating: {props.article.rating}</h1>
-                        {props.article.ratingDesc.whatsTrue === "" ? null : (
-                            <>
-                                <h4>What's True:</h4>
-                                <p>{props.article.ratingDesc.whatsTrue}</p>
-                            </>
-                        )}
+                    <Col
+                        xs={3}
+                        style={{
+                            textAlign: "center",
+                            backgroundColor: "rgb(240, 240, 240)",
+                            padding: "20px",
+                        }}
+                    >
+                        <img
+                            src={props.article.ratingImg}
+                            height="200px"
+                            width="200px"
+                        />
+                    </Col>
+                    <Col
+                        xs={7}
+                        style={{
+                            backgroundColor: "rgb(240, 240, 240)",
+                            padding: "20px",
+                        }}
+                    >
+                        <div>
+                            <h1>
+                                Snope's Rating:{" "}
+                                <a href={props.article.link}>
+                                    {props.article.rating}
+                                </a>
+                            </h1>
 
-                        {props.article.ratingDesc.whatsFalse === "" ? null : (
-                            <>
-                                <h4>What's False:</h4>
-                                <p>{props.article.ratingDesc.whatsFalse}</p>
-                            </>
-                        )}
+                            {props.article.ratingDesc.whatsTrue ===
+                            "" ? null : (
+                                <>
+                                    <h4>What's True:</h4>
+                                    <p>{props.article.ratingDesc.whatsTrue}</p>
+                                </>
+                            )}
 
-                        {props.article.ratingDesc.whatsUndetermined ===
-                        "" ? null : (
-                            <>
-                                <h4>What's Undetermined:</h4>
-                                <p>
-                                    {props.article.ratingDesc.whatsUndetermined}
-                                </p>
-                            </>
-                        )}
-                    </div>
-                </div>
+                            {props.article.ratingDesc.whatsFalse ===
+                            "" ? null : (
+                                <>
+                                    <h4>What's False:</h4>
+                                    <p>{props.article.ratingDesc.whatsFalse}</p>
+                                </>
+                            )}
+
+                            {props.article.ratingDesc.whatsUndetermined ===
+                            "" ? null : (
+                                <>
+                                    <h4>What's Undetermined:</h4>
+                                    <p>
+                                        {
+                                            props.article.ratingDesc
+                                                .whatsUndetermined
+                                        }
+                                    </p>
+                                </>
+                            )}
+                        </div>
+                    </Col>
+                    <Col></Col>
+                </Row>
             </Col>
-            <Col></Col>
         </Row>
     );
 };
