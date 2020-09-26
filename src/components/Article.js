@@ -7,30 +7,43 @@ import Image from "react-bootstrap/Image";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default (props) => {
+    console.log(props);
+    /*
+        imgLink: "https://www.snopes.com/tachyon/2020/09/september-11.jpg"
+        link: "https://www.snopes.com/fact-check/fdny-health-fund/"
+        rating: "True"
+        ratingDesc: {whatsTrue: "", whatsFalse: "", whatsUndetermined: ""}
+        ratingImg: "https://www.snopes.com/tachyon/2018/03/rating-true.png"
+        subtitle: "The COVID-19 pandemic has made it harder for a cash-strapped New York City to front the costs of the 9/11 program."
+        title: "Did the Trump Administration Withhold Money from FDNY 9/11 Health Fund?"
+    */
     return (
         <Row>
             <Col></Col>
             <Col
-                xs={8}
+                xs={9}
                 style={{
                     backgroundColor: "rgb(240, 240, 240)",
                     padding: "20px",
                 }}
             >
-                <a href="https://google.com">
-                    <Image
-                        style={{ float: "left" }}
-                        src="https://via.placeholder.com/200"
-                    />
-                    <h2 className="text-left">
-                        Did Trump Tweet That He ‘Sacrificed a Lot To Be Your
-                        President’?
-                    </h2>
-                    <p className="text-left">
-                        Memorial Day is for honoring and mourning the military
-                        personnel who have died while serving in the U.S. armed
-                        forces.
-                    </p>
+                <a href={props.article.link}>
+                    <Row>
+                        <Col>
+                            <Image
+                                src={props.article.imgLink}
+                                height="200px"
+                                width="auto"
+                            />
+                        </Col>
+
+                        <Col>
+                            <h2 className="text-left">{props.article.title}</h2>
+                            <p className="text-left">
+                                {props.article.subtitle}
+                            </p>
+                        </Col>
+                    </Row>
                 </a>
             </Col>
             <Col></Col>

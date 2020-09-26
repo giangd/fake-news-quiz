@@ -7,6 +7,15 @@ import Image from "react-bootstrap/Image";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default (props) => {
+    /*
+        imgLink: "https://www.snopes.com/tachyon/2020/09/september-11.jpg"
+        link: "https://www.snopes.com/fact-check/fdny-health-fund/"
+        rating: "True"
+        ratingDesc: {whatsTrue: "", whatsFalse: "", whatsUndetermined: ""}
+        ratingImg: "https://www.snopes.com/tachyon/2018/03/rating-true.png"
+        subtitle: "The COVID-19 pandemic has made it harder for a cash-strapped New York City to front the costs of the 9/11 program."
+        title: "Did the Trump Administration Withhold Money from FDNY 9/11 Health Fund?"
+    */
     return (
         <Row>
             <Col></Col>
@@ -24,33 +33,36 @@ export default (props) => {
                     }}
                 >
                     <img
-                        // style={{ float: "left" }}
-                        src="https://www.snopes.com/tachyon/2018/03/rating-mixture.png"
+                        src={props.article.ratingImg}
                         height="200px"
                         width="200px"
                     />
 
                     <div>
-                        <h1>Snope's Rating: Mixed</h1>
-                        <h4>What's True:</h4>
-                        <p>
-                            On at least two occasions in 2016, Trump said the
-                            process of replacing Supreme Court Justice Antonin
-                            Scalia should wait until after that year's
-                            presidential election.
-                        </p>
-                        <h4>What's False:</h4>
-                        <p>
-                            However, the April 2016 "tweet" by Trump, shared
-                            widely in September 2020, was fake, and Trump did
-                            not make the statement attributed to him there.
-                        </p>
-                        <h4>What's Undetermined:</h4>
-                        <p>
-                            However, the April 2016 "tweet" by Trump, shared
-                            widely in September 2020, was fake, and Trump did
-                            not make the statement attributed to him there.
-                        </p>
+                        <h1>Snope's Rating: {props.article.rating}</h1>
+                        {props.article.ratingDesc.whatsTrue === "" ? null : (
+                            <>
+                                <h4>What's True:</h4>
+                                <p>{props.article.ratingDesc.whatsTrue}</p>
+                            </>
+                        )}
+
+                        {props.article.ratingDesc.whatsFalse === "" ? null : (
+                            <>
+                                <h4>What's False:</h4>
+                                <p>{props.article.ratingDesc.whatsFalse}</p>
+                            </>
+                        )}
+
+                        {props.article.ratingDesc.whatsUndetermined ===
+                        "" ? null : (
+                            <>
+                                <h4>What's Undetermined:</h4>
+                                <p>
+                                    {props.article.ratingDesc.whatsUndetermined}
+                                </p>
+                            </>
+                        )}
                     </div>
                 </div>
             </Col>

@@ -14,7 +14,9 @@ export default (props) => {
             <Col></Col>
             <Col style={{ textAlign: "center" }}>
                 <h1>{text}</h1>
-                <Button variant="primary">Next Question</Button>
+                <Button onClick={props.onClick} variant="primary">
+                    Next Question
+                </Button>
             </Col>
             <Col></Col>
         </Row>
