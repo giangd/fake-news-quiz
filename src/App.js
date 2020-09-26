@@ -1,15 +1,18 @@
 import React from "react";
+import axios from "axios";
+
+import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Image from "react-bootstrap/Image";
-import "bootstrap/dist/css/bootstrap.min.css";
-import axios from "axios";
+
 import SnopesAnswer from "./components/SnopesAnswer";
 import Buttons from "./components/Buttons";
 import Result from "./components/Result";
 import Article from "./components/Article";
+
+import config from "./config/config.json";
 
 export default class App extends React.Component {
     state = {};
@@ -21,19 +24,9 @@ export default class App extends React.Component {
                 articles: undefined,
                 articleIndex: 0,
                 article: undefined,
-                trueConditions: ["True", "Mostly True", "Correct Attribution"],
-                mixedConditions: ["Mixture", "Unproven"],
-                falseConditions: [
-                    "Mostly False",
-                    "False",
-                    "Outdated",
-                    "Miscaptioned",
-                    "Misattributed",
-                    "Scam",
-                    "Legend",
-                    "Labeled Satire",
-                    "Lost Legend",
-                ],
+                trueConditions: config.trueConditions,
+                mixedConditions: config.mixedConditions,
+                falseConditions: config.falseConditions,
                 numArticles: 2,
                 isArticleLastOne: false,
                 shouldShowScore: false,

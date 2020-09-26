@@ -1,0 +1,15 @@
+{
+    "trueConditions": ["True", "Mostly True", "Correct Attribution"],
+    "mixedConditions": ["Mixture", "Unproven"],
+    "falseConditions": [
+        "Mostly False",
+        "False",
+        "Outdated",
+        "Miscaptioned",
+        "Misattributed",
+        "Scam",
+        "Legend",
+        "Labeled Satire",
+        "Lost Legend"
+    ]
+}
