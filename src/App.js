@@ -12,35 +12,50 @@ import Result from "./components/Result";
 import Article from "./components/Article";
 
 export default class App extends React.Component {
-    state = {
-        hasAnswered: false,
-        isCorrect: undefined,
-        articles: undefined,
-        articleIndex: 0,
-        article: undefined,
-        trueConditions: ["True", "Mostly True", "Correct Attribution"],
-        mixedConditions: ["Mixture", "Unproven"],
-        falseConditions: [
-            "Mostly False",
-            "False",
-            "Outdated",
-            "Miscaptioned",
-            "Misattributed",
-            "Scam",
-            "Legend",
-            "Labeled Satire",
-            "Lost Legend",
-        ],
-        numArticles: 2,
-        hasReachedEnd: false,
-        shouldShowScore: false,
+    state = {};
+    setStateToDefault = (callback) => {
+        this.setState(
+            {
+                hasAnswered: false,
+                isCorrect: undefined,
+                articles: undefined,
+                articleIndex: 0,
+                article: undefined,
+                trueConditions: ["True", "Mostly True", "Correct Attribution"],
+                mixedConditions: ["Mixture", "Unproven"],
+                falseConditions: [
+                    "Mostly False",
+                    "False",
+                    "Outdated",
+                    "Miscaptioned",
+                    "Misattributed",
+                    "Scam",
+                    "Legend",
+                    "Labeled Satire",
+                    "Lost Legend",
+                ],
+                numArticles: 2,
+                isArticleLastOne: false,
+                shouldShowScore: false,
+                score: 0,
+            },
+            callback
+        );
     };
 
     componentDidMount = async () => {
-        await this.loadNewSetOfArticles(this.state.numArticles);
+        this.setStateToDefault(this.loadNewSetOfArticles);
+        console.log("App -> componentDidMount -> this.state", this.state);
     };
 
-    loadNewSetOfArticles = async (num) => {
+    handleRestart = async () => {
+        console.log("restarted");
+        this.setStateToDefault(this.loadNewSetOfArticles);
+        console.log("App -> handleRestart -> this.state", this.state);
+    };
+
+    loadNewSetOfArticles = async () => {
+        const num = this.state.numArticles;
         const { data: articles } = await axios.get(
             `https://quiet-beach-87061.herokuapp.com/api/randomArticles/${num}`
         );
@@ -58,22 +73,17 @@ export default class App extends React.Component {
 
     loadNextArticle = () => {
         const isNextArticleLastOne =
-            this.state.articleIndex + 2 < this.state.numArticles;
-        if (isNextArticleLastOne) {
-            console.log("   a");
-            this.setState(
-                (prevState) => ({
-                    articleIndex: prevState.articleIndex + 1,
-                }),
-                () => {
-                    this.updateArticle();
-                }
-            );
-        } else {
-            console.log("   b");
+            this.state.articleIndex + 2 >= this.state.numArticles;
 
-            this.setState({ hasReachedEnd: true });
-        }
+        this.setState(
+            (prevState) => ({
+                articleIndex: prevState.articleIndex + 1,
+                isArticleLastOne: isNextArticleLastOne,
+            }),
+            () => {
+                this.updateArticle();
+            }
+        );
     };
     updateArticle = () => {
         this.setState((prevState) => ({
@@ -91,7 +101,10 @@ export default class App extends React.Component {
                         this.state.article.rating
                     )
                 ) {
-                    this.setState({ isCorrect: true });
+                    this.setState((prevState) => ({
+                        isCorrect: true,
+                        score: prevState.score + 1,
+                    }));
                 } else {
                     this.setState({ isCorrect: false });
                 }
@@ -102,7 +115,10 @@ export default class App extends React.Component {
                         this.state.article.rating
                     )
                 ) {
-                    this.setState({ isCorrect: true });
+                    this.setState((prevState) => ({
+                        isCorrect: true,
+                        score: prevState.score + 1,
+                    }));
                 } else {
                     this.setState({ isCorrect: false });
                 }
@@ -113,7 +129,10 @@ export default class App extends React.Component {
                         this.state.article.rating
                     )
                 ) {
-                    this.setState({ isCorrect: true });
+                    this.setState((prevState) => ({
+                        isCorrect: true,
+                        score: prevState.score + 1,
+                    }));
                 } else {
                     this.setState({ isCorrect: false });
                 }
@@ -125,48 +144,71 @@ export default class App extends React.Component {
     };
 
     handleNextQuestionClick = () => {
-        if (!this.state.hasReachedEnd) {
-            console.log("loading next article");
+        if (!this.state.isArticleLastOne) {
             this.loadNextArticle();
             this.setState({ hasAnswered: false });
         } else {
             this.setState({ shouldShowScore: true });
-            console.log("showing results");
         }
     };
 
     render() {
+        const displayButtons = () => {
+            if (!this.state.hasAnswered && !this.state.shouldShowScore) {
+                return <Buttons onClick={this.handleAnswerClick} />;
+            }
+        };
+
+        const displayAnswer = () => {
+            if (this.state.hasAnswered && !this.state.shouldShowScore) {
+                return (
+                    <>
+                        <Result
+                            isCorrect={this.state.isCorrect}
+                            isArticleLastOne={this.state.isArticleLastOne}
+                            onClick={this.handleNextQuestionClick}
+                        />
+                        <SnopesAnswer article={this.state.article} />
+                    </>
+                );
+            }
+        };
+
+        const displayScore = () => {
+            if (this.state.shouldShowScore) {
+                return (
+                    <Row>
+                        <Col></Col>
+                        <Col style={{ textAlign: "center" }} xs={9}>
+                            <h1>Your score was: {this.state.score}/10</h1>
+                            <Button onClick={this.handleRestart}>
+                                Restart
+                            </Button>
+                        </Col>
+                        <Col></Col>
+                    </Row>
+                );
+            }
+        };
+
+        const displayArticle = () => {
+            if (this.state.article && !this.state.shouldShowScore) {
+                return (
+                    <Article
+                        article={this.state.article}
+                        hasAnswered={this.state.hasAnswered}
+                    />
+                );
+            }
+        };
+
         return (
             <>
                 <Container>
-                    {this.state.article && (
-                        <Article
-                            article={this.state.article}
-                            hasAnswered={this.state.hasAnswered}
-                        />
-                    )}
-
-                    {this.state.hasAnswered ? (
-                        <>
-                            <Result
-                                isCorrect={this.state.isCorrect}
-                                hasReachedEnd={this.state.hasReachedEnd}
-                                onClick={this.handleNextQuestionClick}
-                            />
-                            {/* {this.state.shouldShowScore ? (
-                                <h1>Your score was 9/10</h1>
-                            ) : (
-                                <Result
-                                    isCorrect={this.state.isCorrect}
-                                    hasReachedEnd={this.state.hasReachedEnd}
-                                    onClick={this.handleNextQuestionClick}
-                                />
-                            )} */}
-                            <SnopesAnswer article={this.state.article} />
-                        </>
-                    ) : (
-                        <Buttons onClick={this.handleAnswerClick} />
-                    )}
+                    {displayScore()}
+                    {displayArticle()}
+                    {displayButtons()}
+                    {displayAnswer()}
                 </Container>
             </>
         );

@@ -7,7 +7,6 @@ import Image from "react-bootstrap/Image";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default (props) => {
-    console.log(props);
     /*
         imgLink: "https://www.snopes.com/tachyon/2020/09/september-11.jpg"
         link: "https://www.snopes.com/fact-check/fdny-health-fund/"
