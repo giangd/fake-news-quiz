@@ -89,6 +89,7 @@ export default class App extends React.Component {
 
     handleAnswerClick = (answer) => {
         this.setState({ hasAnswered: true });
+        let answeredCorrectly = false;
 
         switch (answer) {
             case "true":
@@ -97,12 +98,7 @@ export default class App extends React.Component {
                         this.state.article.rating
                     )
                 ) {
-                    this.setState((prevState) => ({
-                        isCorrect: true,
-                        score: prevState.score + 1,
-                    }));
-                } else {
-                    this.setState({ isCorrect: false });
+                    answeredCorrectly = true;
                 }
                 break;
             case "mixed":
@@ -111,12 +107,7 @@ export default class App extends React.Component {
                         this.state.article.rating
                     )
                 ) {
-                    this.setState((prevState) => ({
-                        isCorrect: true,
-                        score: prevState.score + 1,
-                    }));
-                } else {
-                    this.setState({ isCorrect: false });
+                    answeredCorrectly = true;
                 }
                 break;
             case "false":
@@ -125,17 +116,21 @@ export default class App extends React.Component {
                         this.state.article.rating
                     )
                 ) {
-                    this.setState((prevState) => ({
-                        isCorrect: true,
-                        score: prevState.score + 1,
-                    }));
-                } else {
-                    this.setState({ isCorrect: false });
+                    answeredCorrectly = true;
                 }
                 break;
             default:
                 console.error(`got answer: ${answer}`);
                 break;
+        }
+
+        if (answeredCorrectly) {
+            this.setState((prevState) => ({
+                isCorrect: true,
+                score: prevState.score + 1,
+            }));
+        } else {
+            this.setState({ isCorrect: false });
         }
     };
 

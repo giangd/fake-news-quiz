@@ -13,32 +13,50 @@ export default (props) => {
     };
 
     return (
-        <Row >
+        <Row>
             <Col></Col>
-            <Col xs={6} style={{ textAlign: "center" }}>
-                <Button
-                    className="mr-4"
-                    onClick={handleOnClick}
-                    data-answer="true"
-                    variant="success"
-                >
-                    True
-                </Button>
-                <Button
-                    className="mr-4"
-                    onClick={handleOnClick}
-                    data-answer="mixed"
-                    variant="warning"
-                >
-                    Mixed
-                </Button>
-                <Button
-                    onClick={handleOnClick}
-                    data-answer="false"
-                    variant="danger"
-                >
-                    False
-                </Button>
+            <Col
+                xs={6}
+                style={{
+                    backgroundColor: "rgb(240, 240, 240)",
+                    padding: "20px",
+                }}
+            >
+                <div className="mb-3">
+                    <h4>
+                        Claim:{" "}
+                        <small>
+                            Activist Shaun King shared a video of smoke rising
+                            from what he said was an entirely "burned down"
+                            Department of Corrections compound.
+                        </small>
+                    </h4>
+                </div>
+                <div style={{ textAlign: "center" }}>
+                    <Button
+                        className="mr-4"
+                        onClick={handleOnClick}
+                        data-answer="true"
+                        variant="success"
+                    >
+                        True
+                    </Button>
+                    <Button
+                        className="mr-4"
+                        onClick={handleOnClick}
+                        data-answer="mixed"
+                        variant="warning"
+                    >
+                        Mixed
+                    </Button>
+                    <Button
+                        onClick={handleOnClick}
+                        data-answer="false"
+                        variant="danger"
+                    >
+                        False
+                    </Button>
+                </div>
             </Col>
             <Col></Col>
         </Row>
