@@ -13,10 +13,11 @@ export default (props) => {
     };
 
     return (
-        <Row>
+        <Row >
             <Col></Col>
-            <Col style={{ textAlign: "center" }}>
+            <Col xs={6} style={{ textAlign: "center" }}>
                 <Button
+                    className="mr-4"
                     onClick={handleOnClick}
                     data-answer="true"
                     variant="success"
@@ -24,6 +25,7 @@ export default (props) => {
                     True
                 </Button>
                 <Button
+                    className="mr-4"
                     onClick={handleOnClick}
                     data-answer="mixed"
                     variant="warning"

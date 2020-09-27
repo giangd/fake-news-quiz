@@ -6,11 +6,14 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Spinner from "react-bootstrap/Spinner";
 
 import SnopesAnswer from "./components/SnopesAnswer";
 import Buttons from "./components/Buttons";
 import Result from "./components/Result";
 import Article from "./components/Article";
+import Loading from "./components/Loading";
+import Score from "./components/Score";
 
 import config from "./config/config.json";
 
@@ -27,7 +30,7 @@ export default class App extends React.Component {
                 trueConditions: config.trueConditions,
                 mixedConditions: config.mixedConditions,
                 falseConditions: config.falseConditions,
-                numArticles: 2,
+                numArticles: 10,
                 isArticleLastOne: false,
                 shouldShowScore: false,
                 score: 0,
@@ -146,6 +149,19 @@ export default class App extends React.Component {
     };
 
     render() {
+        const displayArticle = () => {
+            if (this.state.article && !this.state.shouldShowScore) {
+                return (
+                    <Article
+                        article={this.state.article}
+                        hasAnswered={this.state.hasAnswered}
+                    />
+                );
+            } else if (!this.state.article) {
+                return <Loading></Loading>;
+            }
+        };
+
         const displayButtons = () => {
             if (!this.state.hasAnswered && !this.state.shouldShowScore) {
                 return <Buttons onClick={this.handleAnswerClick} />;
@@ -170,27 +186,11 @@ export default class App extends React.Component {
         const displayScore = () => {
             if (this.state.shouldShowScore) {
                 return (
-                    <Row>
-                        <Col></Col>
-                        <Col style={{ textAlign: "center" }} xs={9}>
-                            <h1>Your score was: {this.state.score}/10</h1>
-                            <Button onClick={this.handleRestart}>
-                                Restart
-                            </Button>
-                        </Col>
-                        <Col></Col>
-                    </Row>
-                );
-            }
-        };
-
-        const displayArticle = () => {
-            if (this.state.article && !this.state.shouldShowScore) {
-                return (
-                    <Article
-                        article={this.state.article}
-                        hasAnswered={this.state.hasAnswered}
-                    />
+                    <Score
+                        score={this.state.score}
+                        numArticles={this.state.numArticles}
+                        handleOnClick={this.handleRestart}
+                    ></Score>
                 );
             }
         };

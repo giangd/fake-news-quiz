@@ -17,7 +17,7 @@ export default (props) => {
         title: "Did the Trump Administration Withhold Money from FDNY 9/11 Health Fund?"
     */
     return (
-        <Row>
+        <Row className="mt-4">
             <Col>
                 <Row>
                     <Col></Col>
@@ -32,21 +32,30 @@ export default (props) => {
                     >
                         <img
                             src={props.article.ratingImg}
-                            height="200px"
-                            width="200px"
+                            className="img-fluid"
+                            height="auto"
+                            width="auto"
                         />
                     </Col>
                     <Col
-                        xs={7}
+                        xs={5}
                         style={{
                             backgroundColor: "rgb(240, 240, 240)",
                             padding: "20px",
+
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
                         }}
                     >
                         <div>
-                            <h1>
+                            <h1 style={{ margin: "0" }}>
                                 Snope's Rating:{" "}
-                                <a href={props.article.link}>
+                                <a
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    href={props.article.link}
+                                >
                                     {props.article.rating}
                                 </a>
                             </h1>

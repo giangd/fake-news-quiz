@@ -17,31 +17,41 @@ export default (props) => {
         title: "Did the Trump Administration Withhold Money from FDNY 9/11 Health Fund?"
     */
     return (
-        <Row>
+        <Row className="mb-4">
             <Col></Col>
             <Col
-                xs={9}
+                xs={6}
                 style={{
                     backgroundColor: "rgb(240, 240, 240)",
                     padding: "20px",
                 }}
             >
-                    <Row>
-                        <Col style={{ textAlign: "center" }}>
+                <Row>
+                    <Col>
+                        <h2 className="text-left">{props.article.title}</h2>
+                        <p className="text-left">{props.article.subtitle}</p>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col style={{ textAlign: "center" }}>
+                        {props.hasAnswered ? (
                             <Image
                                 src={props.article.imgLink}
-                                height="200px"
+                                className="img-fluid"
+                                height="auto"
                                 width="auto"
                             />
-                        </Col>
-
-                        <Col>
-                            <h2 className="text-left">{props.article.title}</h2>
-                            <p className="text-left">
-                                {props.article.subtitle}
-                            </p>
-                        </Col>
-                    </Row>
+                        ) : (
+                            <Image
+                                style={{ filter: "blur(10px)" }}
+                                src={props.article.imgLink}
+                                className="img-fluid"
+                                height="auto"
+                                width="auto"
+                            />
+                        )}
+                    </Col>
+                </Row>
             </Col>
             <Col></Col>
         </Row>
