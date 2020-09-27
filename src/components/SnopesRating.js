@@ -49,7 +49,7 @@ export default (props) => {
                         }}
                     >
                         <div>
-                            <h1 className="mb-2">
+                            <h2 className="mb-2">
                                 Snope's Rating:{" "}
                                 <a
                                     target="_blank"
@@ -58,7 +58,7 @@ export default (props) => {
                                 >
                                     {props.article.rating}
                                 </a>
-                            </h1>
+                            </h2>
 
                             {props.article.ratingDesc.whatsTrue ===
                             "" ? null : (

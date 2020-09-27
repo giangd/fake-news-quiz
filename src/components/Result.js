@@ -11,7 +11,7 @@ export default (props) => {
             <Col
                 xs={6}
                 style={{
-                    backgroundColor: "rgb(240, 240, 240)",
+                    backgroundColor: "rgb(235, 235, 235)",
                     padding: "20px",
                     textAlign: "center",
                 }}
