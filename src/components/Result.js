@@ -5,7 +5,6 @@ import Col from "react-bootstrap/Col";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default (props) => {
-    const text = props.isCorrect ? "You're correct!" : "You're wrong!";
     return (
         <Row>
             <Col></Col>
@@ -17,8 +16,16 @@ export default (props) => {
                     textAlign: "center",
                 }}
             >
-                <h1>{text}</h1>
-                <Button onClick={props.onClick} variant="primary">
+                {props.isCorrect ? (
+                    <h1 style={{ color: "green" }}>Correct!</h1>
+                ) : (
+                    <h1 style={{ color: "red" }}>Wrong!</h1>
+                )}
+                <Button
+                    className="mt-2"
+                    onClick={props.onClick}
+                    variant="primary"
+                >
                     {props.isArticleLastOne ? "Show Score" : "Next Question"}
                 </Button>
             </Col>

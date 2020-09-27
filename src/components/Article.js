@@ -28,8 +28,9 @@ export default (props) => {
             >
                 <Row>
                     <Col>
-                        <h2 className="text-left">{props.article.title}</h2>
-                        <p className="text-left">{props.article.subtitle}</p>
+                        {/* <h2 class="display-4">{props.article.title}</h2> */}
+                        <h2>{props.article.title}</h2>
+                        <p>{props.article.subtitle}</p>
                     </Col>
                 </Row>
                 <Row>

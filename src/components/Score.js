@@ -8,9 +8,16 @@ export default (props) => {
     return (
         <Row>
             <Col></Col>
-            <Col style={{ textAlign: "center" }} xs={9}>
+            <Col
+                xs={6}
+                style={{
+                    backgroundColor: "rgb(240, 240, 240)",
+                    padding: "20px",
+                    textAlign: "center",
+                }}
+            >
                 <h1>
-                    Your score was: {props.score}/{props.numArticles}
+                    You got {props.score}/{props.numArticles} correct.
                 </h1>
                 <Button onClick={props.handleOnClick}>Restart</Button>
             </Col>

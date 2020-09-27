@@ -8,7 +8,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Spinner from "react-bootstrap/Spinner";
 
-import SnopesAnswer from "./components/SnopesAnswer";
+import SnopesAnswer from "./components/SnopesRating";
 import Buttons from "./components/Claim";
 import Result from "./components/Result";
 import Article from "./components/Article";
@@ -42,17 +42,13 @@ export default class App extends React.Component {
 
     componentDidMount = async () => {
         await this.setStateToDefault(this.loadNewSetOfArticles);
-        console.log("App -> componentDidMount -> this.state", this.state);
     };
 
     handleRestart = async () => {
-        console.log("restarted");
         this.setStateToDefault(this.loadNewSetOfArticles);
-        console.log("App -> handleRestart -> this.state", this.state);
     };
 
     loadNewSetOfArticles = async () => {
-        console.log("loading new set of articles", this.state.isLoaded);
         const num = this.state.numArticles;
         const { data: articles } = await axios.get(
             `https://quiet-beach-87061.herokuapp.com/api/randomArticles/${num}`
@@ -84,15 +80,10 @@ export default class App extends React.Component {
         );
     };
     updateArticle = () => {
-        this.setState(
-            (prevState) => ({
-                article: prevState.articles[prevState.articleIndex],
-                isLoaded: true,
-            }),
-            () => {
-                console.log("updated article", this.state.isLoaded);
-            }
-        );
+        this.setState((prevState) => ({
+            article: prevState.articles[prevState.articleIndex],
+            isLoaded: true,
+        }));
     };
 
     handleAnswerClick = (answer) => {
@@ -101,31 +92,19 @@ export default class App extends React.Component {
 
         switch (answer) {
             case "true":
-                if (
-                    this.state.trueConditions.includes(
-                        this.state.article.rating
-                    )
-                ) {
-                    answeredCorrectly = true;
-                }
+                answeredCorrectly = this.state.trueConditions.includes(
+                    this.state.article.rating
+                );
                 break;
             case "mixed":
-                if (
-                    this.state.mixedConditions.includes(
-                        this.state.article.rating
-                    )
-                ) {
-                    answeredCorrectly = true;
-                }
+                answeredCorrectly = this.state.mixedConditions.includes(
+                    this.state.article.rating
+                );
                 break;
             case "false":
-                if (
-                    this.state.falseConditions.includes(
-                        this.state.article.rating
-                    )
-                ) {
-                    answeredCorrectly = true;
-                }
+                answeredCorrectly = this.state.falseConditions.includes(
+                    this.state.article.rating
+                );
                 break;
             default:
                 console.error(`got answer: ${answer}`);
@@ -168,17 +147,8 @@ export default class App extends React.Component {
         };
 
         const displayButtons = () => {
-            console.log(
-                "______App -> displayButtons -> this.state.isLoading",
-                this.state.isLoaded
-            );
             if (this.state.isLoaded) {
                 if (!this.state.hasAnswered && !this.state.shouldShowScore) {
-                    console.log(
-                        "   i get called 2",
-                        this.state.isLoaded,
-                        this.state
-                    );
                     return (
                         <Buttons
                             article={this.state.article}
@@ -187,12 +157,6 @@ export default class App extends React.Component {
                     );
                 }
             } else {
-                console.log(
-                    "   i get called 1",
-                    this.state.isLoaded,
-                    this.state
-                );
-
                 return <Loading></Loading>;
             }
         };
@@ -227,10 +191,17 @@ export default class App extends React.Component {
         return (
             <>
                 <Container>
-                    {displayScore()}
+                    <Row className="mb-5 mt-5">
+                        <Col style={{ textAlign: "center" }}>
+                            <h1 class="display-4">
+                                Can you discern fake news from real news?
+                            </h1>
+                        </Col>
+                    </Row>
                     {displayArticle()}
                     {displayButtons()}
                     {displayAnswer()}
+                    {displayScore()}
                 </Container>
             </>
         );

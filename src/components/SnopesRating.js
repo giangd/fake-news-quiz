@@ -49,7 +49,7 @@ export default (props) => {
                         }}
                     >
                         <div>
-                            <h1 style={{ margin: "0" }}>
+                            <h1 className="mb-2">
                                 Snope's Rating:{" "}
                                 <a
                                     target="_blank"
