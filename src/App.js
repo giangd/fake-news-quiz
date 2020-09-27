@@ -2,11 +2,7 @@ import React from "react";
 import axios from "axios";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Spinner from "react-bootstrap/Spinner";
 
 import SnopesAnswer from "./components/SnopesRating";
 import Buttons from "./components/Claim";
@@ -14,6 +10,7 @@ import Result from "./components/Result";
 import Article from "./components/Article";
 import Loading from "./components/Loading";
 import Score from "./components/Score";
+import Title from "./components/Title";
 
 import config from "./config/config.json";
 
@@ -191,13 +188,7 @@ export default class App extends React.Component {
         return (
             <>
                 <Container>
-                    <Row className="mb-5 mt-5">
-                        <Col style={{ textAlign: "center" }}>
-                            <h1 class="display-4">
-                                Can you discern fake news from real news?
-                            </h1>
-                        </Col>
-                    </Row>
+                    <Title></Title>
                     {displayArticle()}
                     {displayButtons()}
                     {displayAnswer()}

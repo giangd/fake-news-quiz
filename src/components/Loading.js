@@ -1,14 +1,11 @@
 import React from "react";
-import axios from "axios";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Spinner from "react-bootstrap/Spinner";
 
-export default (props) => {
+export default () => {
     return (
         <Row className="mb-4">
             <Col></Col>
