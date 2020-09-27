@@ -24,12 +24,7 @@ export default (props) => {
             >
                 <div className="mb-3">
                     <h4>
-                        Claim:{" "}
-                        <small>
-                            Activist Shaun King shared a video of smoke rising
-                            from what he said was an entirely "burned down"
-                            Department of Corrections compound.
-                        </small>
+                        Claim: <small>{props.article.claim}</small>
                     </h4>
                 </div>
                 <div style={{ textAlign: "center" }}>

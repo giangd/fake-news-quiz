@@ -9,7 +9,14 @@ export default (props) => {
     return (
         <Row>
             <Col></Col>
-            <Col style={{ textAlign: "center" }}>
+            <Col
+                xs={6}
+                style={{
+                    backgroundColor: "rgb(240, 240, 240)",
+                    padding: "20px",
+                    textAlign: "center",
+                }}
+            >
                 <h1>{text}</h1>
                 <Button onClick={props.onClick} variant="primary">
                     {props.isArticleLastOne ? "Show Score" : "Next Question"}

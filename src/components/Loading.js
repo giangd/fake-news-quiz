@@ -13,7 +13,7 @@ export default (props) => {
         <Row className="mb-4">
             <Col></Col>
             <Col
-                xs={9}
+                xs={6}
                 style={{
                     backgroundColor: "rgb(240, 240, 240)",
                     padding: "20px",

@@ -9,7 +9,7 @@ import Col from "react-bootstrap/Col";
 import Spinner from "react-bootstrap/Spinner";
 
 import SnopesAnswer from "./components/SnopesAnswer";
-import Buttons from "./components/Buttons";
+import Buttons from "./components/Claim";
 import Result from "./components/Result";
 import Article from "./components/Article";
 import Loading from "./components/Loading";
@@ -34,13 +34,14 @@ export default class App extends React.Component {
                 isArticleLastOne: false,
                 shouldShowScore: false,
                 score: 0,
+                isLoaded: false,
             },
             callback
         );
     };
 
     componentDidMount = async () => {
-        this.setStateToDefault(this.loadNewSetOfArticles);
+        await this.setStateToDefault(this.loadNewSetOfArticles);
         console.log("App -> componentDidMount -> this.state", this.state);
     };
 
@@ -51,6 +52,7 @@ export default class App extends React.Component {
     };
 
     loadNewSetOfArticles = async () => {
+        console.log("loading new set of articles", this.state.isLoaded);
         const num = this.state.numArticles;
         const { data: articles } = await axios.get(
             `https://quiet-beach-87061.herokuapp.com/api/randomArticles/${num}`
@@ -82,9 +84,15 @@ export default class App extends React.Component {
         );
     };
     updateArticle = () => {
-        this.setState((prevState) => ({
-            article: prevState.articles[prevState.articleIndex],
-        }));
+        this.setState(
+            (prevState) => ({
+                article: prevState.articles[prevState.articleIndex],
+                isLoaded: true,
+            }),
+            () => {
+                console.log("updated article", this.state.isLoaded);
+            }
+        );
     };
 
     handleAnswerClick = (answer) => {
@@ -145,21 +153,47 @@ export default class App extends React.Component {
 
     render() {
         const displayArticle = () => {
-            if (this.state.article && !this.state.shouldShowScore) {
-                return (
-                    <Article
-                        article={this.state.article}
-                        hasAnswered={this.state.hasAnswered}
-                    />
-                );
-            } else if (!this.state.article) {
+            if (this.state.isLoaded) {
+                if (this.state.article && !this.state.shouldShowScore) {
+                    return (
+                        <Article
+                            article={this.state.article}
+                            hasAnswered={this.state.hasAnswered}
+                        />
+                    );
+                }
+            } else {
                 return <Loading></Loading>;
             }
         };
 
         const displayButtons = () => {
-            if (!this.state.hasAnswered && !this.state.shouldShowScore) {
-                return <Buttons onClick={this.handleAnswerClick} />;
+            console.log(
+                "______App -> displayButtons -> this.state.isLoading",
+                this.state.isLoaded
+            );
+            if (this.state.isLoaded) {
+                if (!this.state.hasAnswered && !this.state.shouldShowScore) {
+                    console.log(
+                        "   i get called 2",
+                        this.state.isLoaded,
+                        this.state
+                    );
+                    return (
+                        <Buttons
+                            article={this.state.article}
+                            onClick={this.handleAnswerClick}
+                        />
+                    );
+                }
+            } else {
+                console.log(
+                    "   i get called 1",
+                    this.state.isLoaded,
+                    this.state
+                );
+
+                return <Loading></Loading>;
             }
         };
 
