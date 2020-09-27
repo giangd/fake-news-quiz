@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.js": "/fake-news-quiz/static/js/main.c6c8f9ac.chunk.js",
+    "main.js.map": "/fake-news-quiz/static/js/main.c6c8f9ac.chunk.js.map",
+    "runtime-main.js": "/fake-news-quiz/static/js/runtime-main.2f29fa05.js",
+    "runtime-main.js.map": "/fake-news-quiz/static/js/runtime-main.2f29fa05.js.map",
+    "static/css/2.d9ad5f5c.chunk.css": "/fake-news-quiz/static/css/2.d9ad5f5c.chunk.css",
+    "static/js/2.b9bf0eff.chunk.js": "/fake-news-quiz/static/js/2.b9bf0eff.chunk.js",
+    "static/js/2.b9bf0eff.chunk.js.map": "/fake-news-quiz/static/js/2.b9bf0eff.chunk.js.map",
+    "index.html": "/fake-news-quiz/index.html",
+    "precache-manifest.70bf6384596c29609b2e7da762ae49d6.js": "/fake-news-quiz/precache-manifest.70bf6384596c29609b2e7da762ae49d6.js",
+    "service-worker.js": "/fake-news-quiz/service-worker.js",
+    "static/css/2.d9ad5f5c.chunk.css.map": "/fake-news-quiz/static/css/2.d9ad5f5c.chunk.css.map",
+    "static/js/2.b9bf0eff.chunk.js.LICENSE.txt": "/fake-news-quiz/static/js/2.b9bf0eff.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.2f29fa05.js",
+    "static/css/2.d9ad5f5c.chunk.css",
+    "static/js/2.b9bf0eff.chunk.js",
+    "static/js/main.c6c8f9ac.chunk.js"
+  ]
+}
