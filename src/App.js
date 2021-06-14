@@ -27,7 +27,7 @@ export default class App extends React.Component {
                 trueConditions: config.trueConditions,
                 mixedConditions: config.mixedConditions,
                 falseConditions: config.falseConditions,
-                numArticles: 10,
+                numArticles: 5,
                 isArticleLastOne: false,
                 shouldShowScore: false,
                 score: 0,
